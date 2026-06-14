@@ -8,18 +8,37 @@ import MoreStories from "./more-stories";
 import Onboarding from "./onboarding";
 import PortableText from "./portable-text";
 
-import type { HeroQueryResult, SettingsQueryResult } from "@/sanity.types";
+import type { HeroQueryResult } from "@/sanity.types";
 import type { PortableTextBlock } from "next-sanity";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { heroQuery, settingsQuery } from "@/sanity/lib/queries";
+
+type SettingsDescription = Array<{
+  _key: string;
+  _type: "block";
+  children?: Array<{
+    _key: string;
+    _type: "span";
+    text?: string;
+    marks?: string[];
+  }>;
+  markDefs?: Array<{
+    _key: string;
+    _type: "link";
+    href?: string;
+  }>;
+  style?: "normal";
+  listItem?: never;
+  level?: number;
+}>;
 
 function HeroSection({
   title,
   description,
 }: {
   title: string | null | undefined;
-  description: string | SettingsQueryResult["description"] | undefined;
+  description: string | SettingsDescription | undefined;
 }) {
   const heroTitle = title || demo.title;
   const heroDescription =
