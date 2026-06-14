@@ -8,7 +8,7 @@ import MoreStories from "./more-stories";
 import Onboarding from "./onboarding";
 import PortableText from "./portable-text";
 
-import type { HeroQueryResult } from "@/sanity.types";
+import type { HeroQueryResult, SettingsQueryResult } from "@/sanity.types";
 import type { PortableTextBlock } from "next-sanity";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -19,7 +19,7 @@ function HeroSection({
   description,
 }: {
   title: string | null | undefined;
-  description: string | PortableTextBlock[] | undefined;
+  description: string | SettingsQueryResult["description"] | undefined;
 }) {
   const heroTitle = title || demo.title;
   const heroDescription =
