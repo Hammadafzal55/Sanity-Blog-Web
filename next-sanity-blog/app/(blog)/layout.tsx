@@ -18,6 +18,7 @@ import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import CommentSection from "@/app/(blog)/comments/page";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await sanityFetch({
@@ -67,7 +68,10 @@ function SiteHeader({ siteTitle }: { siteTitle: string }) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 text-slate-900 shadow-sm backdrop-blur">
       <div className="container mx-auto flex flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between">
-        <Link href="/" className="group inline-flex items-center gap-3 transition hover:opacity-90">
+        <Link
+          href="/"
+          className="group inline-flex items-center gap-3 transition hover:opacity-90"
+        >
           <span className="inline-flex h-12 w-12 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-400 to-orange-500 text-lg font-black text-white shadow-lg shadow-amber-300/30">
             T
           </span>
@@ -132,7 +136,8 @@ function AppFooter({ footer }: { footer: PortableTextBlock[] }) {
               TechVerse
             </p>
             <p className="mt-4 max-w-md text-base leading-7 text-slate-300">
-              TechVerse delivers next-level tech stories, deep dives, and product guides for curious minds.
+              TechVerse delivers next-level tech stories, deep dives, and
+              product guides for curious minds.
             </p>
             <div className="mt-6 inline-flex rounded-full bg-white/5 px-4 py-2 text-sm text-slate-300 ring-1 ring-white/10">
               <span className="mr-2 h-2 w-2 rounded-full bg-cyan-400"></span>
@@ -175,7 +180,8 @@ function AppFooter({ footer }: { footer: PortableTextBlock[] }) {
         </div>
 
         <div className="border-t border-slate-800 pt-6 text-slate-500">
-          Built for modern tech publishing with bold content, sharp design, and seamless preview.
+          Built for modern tech publishing with bold content, sharp design, and
+          seamless preview.
         </div>
       </div>
     </footer>
@@ -194,11 +200,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${inter.variable} bg-slate-50 text-slate-900`}>
-      <body className="bg-slate-50 text-slate-900 antialiased">
+      <body className="bg-slate-50 text-slate-900 antialiased overflow-x-hidden">
         <SiteHeader siteTitle={siteTitle} />
         <section className="min-h-screen bg-slate-50">
           {isDraftMode && <AlertBanner />}
           <main className="relative z-10">{children}</main>
+
+          <CommentSection />
           <AppFooter footer={footer} />
         </section>
         {isDraftMode && <VisualEditing />}
